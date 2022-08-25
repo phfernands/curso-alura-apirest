@@ -5,16 +5,16 @@ public class TokenDto {
 	private String token;
 	private String tipo;
 
-	public TokenDto(String token, String string) {
+	public TokenDto(String token, String tipo) {
 		this.token = token;
-		this.tipo = string;
+		this.tipo = tipo;
 	}
 
 	public String getToken() {
 		return token;
 	}
 
-	public String getString() {
+	public String getTipo() {
 		return tipo;
 	}
 
