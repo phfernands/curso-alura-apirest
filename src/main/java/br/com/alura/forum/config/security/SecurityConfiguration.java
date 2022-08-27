@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +21,6 @@ import br.com.alura.forum.repository.UsuarioRepository;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
-	
-	@Autowired
-	private AutenticacaoService autenticacaoService;
 	
 	@Autowired
 	private TokenService tokenService;
@@ -56,6 +54,17 @@ public class SecurityConfiguration {
     @Bean
     protected PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+        	       .antMatchers("/**.html",
+                           "/v3/api-docs/**",
+                           "/webjars/**",
+                           "/configuration/**",
+                           "/swagger-resources/**",
+                           "/swagger-ui/**");
     }
 
 }

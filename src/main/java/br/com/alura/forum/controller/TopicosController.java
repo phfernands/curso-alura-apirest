@@ -32,6 +32,7 @@ import br.com.alura.forum.controller.form.TopicoForm;
 import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/topicos")
@@ -97,6 +98,7 @@ public class TopicosController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	@CacheEvict(value = "listaDeTopicos", allEntries = true)
+	@SecurityRequirement(name = "bearer-key")
 	public ResponseEntity<TopicoDto> deletar(@PathVariable Long id) {
 		Optional<Topico> opicional = topicoRepository.findById(id);
 		if(opicional.isPresent()) {
